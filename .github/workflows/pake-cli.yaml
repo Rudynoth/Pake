@@ -63,6 +63,9 @@ on:
         required: false
         type: boolean
         default: false
+      inject:
+        description: "Path(s) to CSS/JS files to inject (comma-separated)"
+        required: false
       multi_arch:
         description: "Universal binary (macOS only)"
         required: false
@@ -160,6 +163,10 @@ jobs:
             ARGS+=("--multi-instance")
           fi
 
+          if [ -n "${{ inputs.inject }}" ]; then
+            ARGS+=("--inject" "${{ inputs.inject }}")
+          fi
+
           if [ "${{ inputs.multi_arch }}" == "true" ]; then
             ARGS+=("--multi-arch")
           fi
@@ -216,6 +223,10 @@ jobs:
 
           if ("${{ inputs.multi_instance }}" -eq "true") {
             $args += "--multi-instance"
+          }
+
+          if ("${{ inputs.inject }}" -ne "") {
+            $args += "--inject", "${{ inputs.inject }}"
           }
 
           Write-Host "Running: node dist/cli.js $($args -join ' ')"
