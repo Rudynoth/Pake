@@ -18,29 +18,46 @@
       "font:20px/42px sans-serif;text-align:center;cursor:pointer;" +
       "box-shadow:0 2px 10px rgba(0,0,0,0.4);user-select:none;" +
       "transition:opacity .2s;opacity:0.75";
-    b.addEventListener("mouseenter", function () { b.style.opacity = "1"; });
-    b.addEventListener("mouseleave", function () { b.style.opacity = "0.75"; });
+    b.addEventListener("mouseenter", function () {
+      b.style.opacity = "1";
+    });
+    b.addEventListener("mouseleave", function () {
+      b.style.opacity = "0.75";
+    });
     b.addEventListener("click", function () {
-      try { window.location.href = window.location.origin; }
-      catch (e) { window.location.reload(); }
+      try {
+        window.location.href = window.location.origin;
+      } catch (e) {
+        window.location.reload();
+      }
     });
 
     (document.body || document.documentElement).appendChild(b);
   }
 
   function bindKey() {
-    document.addEventListener("keydown", function (e) {
-      // Alt + Home  ->  ir al inicio
-      if (e.altKey && e.key === "Home") {
-        e.preventDefault();
-        try { window.location.href = window.location.origin; }
-        catch (err) { window.location.reload(); }
-      }
-    }, true);
+    document.addEventListener(
+      "keydown",
+      function (e) {
+        // Alt + Home  ->  ir al inicio
+        if (e.altKey && e.key === "Home") {
+          e.preventDefault();
+          try {
+            window.location.href = window.location.origin;
+          } catch (err) {
+            window.location.reload();
+          }
+        }
+      },
+      true,
+    );
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function () { makeHome(); bindKey(); });
+    document.addEventListener("DOMContentLoaded", function () {
+      makeHome();
+      bindKey();
+    });
   } else {
     makeHome();
     bindKey();
