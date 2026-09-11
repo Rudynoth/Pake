@@ -12,8 +12,12 @@
     bar.style.cssText =
       "position:fixed;right:14px;bottom:14px;z-index:2147483647;" +
       "display:flex;gap:6px;opacity:0.72;transition:opacity .2s";
-    bar.addEventListener("mouseenter", function () { bar.style.opacity = "1"; });
-    bar.addEventListener("mouseleave", function () { bar.style.opacity = "0.72"; });
+    bar.addEventListener("mouseenter", function () {
+      bar.style.opacity = "1";
+    });
+    bar.addEventListener("mouseleave", function () {
+      bar.style.opacity = "0.72";
+    });
 
     function mkBtn(label, title, fn) {
       var b = document.createElement("div");
@@ -28,12 +32,30 @@
       return b;
     }
 
-    bar.appendChild(mkBtn("\u2190", "Atras", function () { history.back(); }));
-    bar.appendChild(mkBtn("\u2192", "Adelante", function () { history.forward(); }));
-    bar.appendChild(mkBtn("\u2302", "Ir al inicio", function () {
-      try { location.href = location.origin; } catch (e) { location.reload(); }
-    }));
-    bar.appendChild(mkBtn("\u21bb", "Recargar", function () { location.reload(); }));
+    bar.appendChild(
+      mkBtn("\u2190", "Atras", function () {
+        history.back();
+      }),
+    );
+    bar.appendChild(
+      mkBtn("\u2192", "Adelante", function () {
+        history.forward();
+      }),
+    );
+    bar.appendChild(
+      mkBtn("\u2302", "Ir al inicio", function () {
+        try {
+          location.href = location.origin;
+        } catch (e) {
+          location.reload();
+        }
+      }),
+    );
+    bar.appendChild(
+      mkBtn("\u21bb", "Recargar", function () {
+        location.reload();
+      }),
+    );
 
     (document.body || document.documentElement).appendChild(bar);
   }
