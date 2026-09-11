@@ -58,6 +58,11 @@ on:
         required: false
         type: boolean
         default: false
+      multi_instance:
+        description: "Allow multiple instances"
+        required: false
+        type: boolean
+        default: false
       multi_arch:
         description: "Universal binary (macOS only)"
         required: false
@@ -151,6 +156,10 @@ jobs:
             ARGS+=("--new-window")
           fi
 
+          if [ "${{ inputs.multi_instance }}" == "true" ]; then
+            ARGS+=("--multi-instance")
+          fi
+
           if [ "${{ inputs.multi_arch }}" == "true" ]; then
             ARGS+=("--multi-arch")
           fi
@@ -203,6 +212,10 @@ jobs:
 
           if ("${{ inputs.new_window }}" -eq "true") {
             $args += "--new-window"
+          }
+
+          if ("${{ inputs.multi_instance }}" -eq "true") {
+            $args += "--multi-instance"
           }
 
           Write-Host "Running: node dist/cli.js $($args -join ' ')"
